@@ -188,15 +188,15 @@ if st.button("เริ่มคำนวณ"):
             })
         if all_summary_bars:
             st.markdown("---")
-            st.header("📋 สรุปภาพรวมทั้งหมด")
+            st.header("สรุปภาพรวมทั้งหมด")
             col_sum1, col_sum2 = st.columns(2)
             
             with col_sum1:
-                st.subheader("🛒 สรุปจำนวนเหล็กที่ต้องสั่งซื้อ")
+                st.subheader("สรุปจำนวนเหล็กที่ต้องใช้")
                 st.dataframe(pd.DataFrame(all_summary_bars), use_container_width=True, hide_index=True)
                 
             with col_sum2:
-                st.subheader("♻️ สรุปเศษเหล็กที่เหลือ")
+                st.subheader("สรุปเศษเหล็กที่เหลือ")
                 if all_summary_scrap:
                     df_scrap = pd.DataFrame(all_summary_scrap)
                     df_scrap_grouped = df_scrap.groupby(["ชนิดเหล็ก", "ความยาวเศษ (m.)"], as_index=False)["จำนวน (ท่อน)"].sum()
