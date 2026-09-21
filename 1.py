@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 import pulp
 from collections import defaultdict
+
 def generate_patterns(lengths_mm, stock_mm):
     patterns = []
     def dfs(index, current_pattern, current_length):
@@ -27,6 +28,7 @@ def generate_patterns(lengths_mm, stock_mm):
         if is_maximal:
             maximal_patterns.append(p)            
     return maximal_patterns if maximal_patterns else patterns
+
 st.title("Cutting Stock Optimization")
 
 col1, col2 = st.columns(2)
@@ -76,7 +78,7 @@ edited_df = st.data_editor(
             step=1
         )
     },
-    use_container_width=True,
+    width="stretch", # แก้ไขจุดที่ 1
     hide_index=False,
     num_rows="fixed" 
 )
@@ -193,13 +195,13 @@ if st.button("เริ่มคำนวณ"):
             
             with col_sum1:
                 st.subheader("สรุปจำนวนเหล็กที่ต้องใช้")
-                st.dataframe(pd.DataFrame(all_summary_bars), use_container_width=True, hide_index=True)
+                st.dataframe(pd.DataFrame(all_summary_bars), width="stretch", hide_index=True) # แก้ไขจุดที่ 2
                 
             with col_sum2:
                 st.subheader("สรุปเศษเหล็กที่เหลือ")
                 if all_summary_scrap:
                     df_scrap = pd.DataFrame(all_summary_scrap)
                     df_scrap_grouped = df_scrap.groupby(["ชนิดเหล็ก", "ความยาวเศษ (m.)"], as_index=False)["จำนวน (ท่อน)"].sum()
-                    st.dataframe(df_scrap_grouped, use_container_width=True, hide_index=True)
+                    st.dataframe(df_scrap_grouped, width="stretch", hide_index=True) # แก้ไขจุดที่ 3
                 else:
                     st.success("ไม่มีเศษเหล็กเหลือทิ้งเลย")
